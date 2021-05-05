@@ -13,7 +13,7 @@
     </head>
     <body>
     <center>
-        <h1>Hola</h1>
+        <h1>Confirmación</h1>
         <h3>
             <form method="post" action="Ahorcado">
                 <table with="50%">
