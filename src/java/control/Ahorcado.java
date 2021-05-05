@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 public class Ahorcado extends HttpServlet {
 
     private final static String[] PALABRAS = {"ACERTASTE", "OAXACA", "HAMACA", "AHORITA"};
+    private final static String[] PALABRAS2 ={};
     private static int inten = 0;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -25,11 +26,8 @@ public class Ahorcado extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession sesion = request.getSession();
         String nombre = (String) request.getParameter("nombre");
-        try {
-            inten = Integer.parseInt((String) request.getParameter("nintento"));
-        } catch (NumberFormatException e) {
-        }
-
+        inten = Integer.parseInt((String) request.getParameter("nintento"));
+        
         String palabra = (String) sesion.getAttribute("palabra");
         String aciertos;
         String errados;
@@ -92,13 +90,14 @@ public class Ahorcado extends HttpServlet {
             }
             if (terminado) {
                 sesion.invalidate();
-                out.println("<br/><h2>JUEGO TERMINADO</h2>");
+                out.println("<br/><h2>JUEGO COMPLETO</h2>");
                 out.println("<br/><a href='index.jsp'>regresa</a>");
             }
-        } catch (Exception eeee) {
-
+            out.println("</body>");             
+            out.println("</html>"); 
+        } finally {
+             out.close(); 
         }
-
     }
 
     @Override
