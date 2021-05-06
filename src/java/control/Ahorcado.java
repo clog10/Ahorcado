@@ -19,33 +19,33 @@ public class Ahorcado extends HttpServlet {
 
     private final static String[] PALABRAS1 = {"MUNDO", "ARBOL", "CASA"};
     private final static String[] PALABRAS2 = {"INTELIGENCIA", "MAQUINARIA", "COMPUTADORA"};
-    private final static String[] PALABRAS3 = {"OTORRINOLARINGOLOGO", "ELECTROCARDIOGRAMA", "ELECTRODOMESTICO"};
+    private final static String[] PALABRAS3 = {"OTORRINOLARINGOLOGO", "ELECTROCARDIOGRAMA", "ELECTRODOMESTICO","ENCEFALOGRAMA"};
     private static int inten = 0;
     private static int dificultad=0;
+    private static String nombre="";
  
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession sesion = request.getSession();
-        String nombre = (String) request.getParameter("nombre");
         try{ 
         inten = Integer.parseInt((String) request.getParameter("nintento"));
         dificultad = Integer.parseInt(request.getParameter("grado"));
+        nombre = (String) request.getParameter("nombre");
         }catch(NumberFormatException e){
         }
         String palabra = (String) sesion.getAttribute("palabra");
         
         String aciertos;
         String errados;
-        sesion.setAttribute("name",nombre);
         if (palabra == null) {
              Random oran= new Random();            
              if(dificultad==1){
-                 palabra = PALABRAS1[oran.nextInt(PALABRAS1.length)];  
+                 palabra = PALABRAS1[oran.nextInt(PALABRAS1.length-1)];  
              }else if(dificultad==2){
-                 palabra = PALABRAS2[oran.nextInt(PALABRAS2.length)];  
+                 palabra = PALABRAS2[oran.nextInt(PALABRAS2.length-1)];  
              }else if(dificultad==3){
-                 palabra = PALABRAS3[oran.nextInt(PALABRAS3.length)];  
+                 palabra = PALABRAS3[oran.nextInt(PALABRAS3.length-1)];  
              }
              aciertos="";            
              errados="";
@@ -73,7 +73,8 @@ public class Ahorcado extends HttpServlet {
              out.println("</head>");
              out.println("<body>");  
              out.println("<center>");
-             out.println("<h2>Juego: " + request.getContextPath() + "</h2>");             
+             out.println("<h2>Juego: " + request.getContextPath() + "</h2>"); 
+             out.println("<h3>"+"Jugador: "+nombre+"</h3>");
              out.println("<h2>Probando suerte </h2>");             
              boolean terminado = true;             
              out.println("<h2>");
@@ -97,13 +98,12 @@ public class Ahorcado extends HttpServlet {
                 out.println("<br/><h2>" + "Oportunidades de errar: " + (inten - errados.length()) + "</h2>");
             } else {
                 sesion.invalidate();
-                out.println("<br/><h3>JUEGO TERMINADO</h3>");
+                out.println("<br/><h3>JUEGO TERMINADO, PERDISTE 😕</h3>");
                 out.println("<br/><a href='index.jsp'>regresa</a>");
             }
             if (terminado) {
                 sesion.invalidate();
-                out.println("<br/><h2>JUEGO COMPLETO</h2>");
-                out.println("<br/><h2>GANASTE</h2>");
+                out.println("<br/><h2>JUEGO COMPLETO, GANASTE 😃⭐</h2>");
                 out.println("<br/><a href='index.jsp'>regresa</a>");
             }
             out.println("</center>");
