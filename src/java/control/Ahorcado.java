@@ -17,8 +17,8 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "Ahorcado", urlPatterns = {"/Ahorcado"})
 public class Ahorcado extends HttpServlet {
 
-    private final static String[] PALABRAS1 = {"MUNDO", "ARBOL", "CASA"};
-    private final static String[] PALABRAS2 = {"INTELIGENCIA", "MAQUINARIA", "COMPUTADORA"};
+    private final static String[] PALABRAS1 = {"MUNDO", "ARBOL", "CASA", "LAPIZ", "BOTE"};
+    private final static String[] PALABRAS2 = {"INTELIGENCIA", "MAQUINARIA", "COMPUTADORA", "ESCALERA", "BORRADOR"};
     private final static String[] PALABRAS3 = {"OTORRINOLARINGOLOGO", "ELECTROCARDIOGRAMA", "ELECTRODOMESTICO","ENCEFALOGRAMA"};
     private static int inten = 0;
     private static int dificultad=0;
